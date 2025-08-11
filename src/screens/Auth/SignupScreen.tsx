@@ -29,7 +29,7 @@ export default function SignupScreen() {
       <Text style={{ marginBottom: 8 }}>User Type (player/coach/club): {userType}</Text>
       {/* Simple toggle for MVP */}
       <View style={{ flexDirection: 'row', marginBottom: 12 }}>
-        {(['player','coach','club'] as const).map(t => (
+        {(['player', 'coach', 'club'] as const).map(t => (
           <View key={t} style={{ marginRight: 8 }}>
             <Button title={t} onPress={() => setUserType(t)} color={userType === t ? '#FF6B00' : undefined} />
           </View>

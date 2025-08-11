@@ -5,6 +5,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useColorScheme } from 'react-native';
 import { useAuthStore } from '../stores/auth';
 import { SplashScreen as Splash, IntroSliderScreen as Intro, LoginScreen as Login, SignupScreen as Signup, FeedScreen as Feed, DiscoverScreen as Discover, ProfileScreen as Profile } from '../screens';
+import ProfileWizardStack from '../screens/Wizard/ProfileWizardStack';
 
 // Placeholder screens
 const SplashScreen = Splash;
@@ -52,7 +53,7 @@ export function RootNavigator() {
             </Stack.Screen>
           </>
         ) : !profileCompleted ? (
-          <Stack.Screen name="Wizard" component={WizardStack} />
+          <Stack.Screen name="Wizard" component={ProfileWizardStack} />
         ) : (
           <Stack.Screen name="App" component={AppTabs} />
         )}
