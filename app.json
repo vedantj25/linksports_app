@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "linksports_app",
-    "slug": "linksports_app",
+    "name": "LinkSports",
+    "slug": "linksports",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -13,17 +13,24 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.linksports.app"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "package": "com.linksports.app"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "scheme": "linksports",
+    "extra": {
+      "apiBaseUrlDev": "http://localhost:3000/api/v1",
+      "apiBaseUrlProd": "https://linksports-web-production.up.railway.app/api/v1"
     }
   }
 }
