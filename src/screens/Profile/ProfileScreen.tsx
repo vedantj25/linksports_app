@@ -8,9 +8,14 @@ import { fetchMyProfile, updateProfile } from '../../api/profile';
 import Card from '../../components/ui/Card';
 import Input from '../../components/ui/Input';
 import Button from '../../components/ui/Button';
+import EmptyState from '../../components/ui/EmptyState';
+import Screen from '../../components/ui/Screen';
+import Avatar from '../../components/ui/Avatar';
+import Chip from '../../components/ui/Chip';
 
 export default function ProfileScreen({ navigation }: any) {
   const user = useAuthStore((s) => s.user);
+  const logout = useAuthStore((s) => s.logout);
   const incomplete = !user?.profile_completed;
   const qc = useQueryClient();
 
@@ -52,10 +57,36 @@ export default function ProfileScreen({ navigation }: any) {
     );
   }
 
+  if (!me) {
+    return (
+      <Screen style={[styles.container, { alignItems: 'center', justifyContent: 'center' }]}>
+        <EmptyState
+          icon="alert-circle-outline"
+          title="Failed to load profile"
+          description="Please check your connection and try again."
+          ctaText="Retry"
+          onPressCta={() => qc.invalidateQueries({ queryKey: ['meProfile'] })}
+        />
+      </Screen>
+    );
+  }
+
   return (
-    <View style={styles.container}>
+    <Screen style={styles.container}>
       {incomplete && <ProfileIncompleteBanner onPress={() => navigation.navigate('Wizard')} />}
-      <Text style={[styles.title, { fontFamily: theme.typography.fontPrimaryBold }]}>Profile</Text>
+      <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
+        <Text style={[styles.title, { fontFamily: theme.typography.fontPrimaryBold }]}>Profile</Text>
+        <Button title="Logout" variant="outline" onPress={logout} />
+      </View>
+
+      <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 16 }}>
+        <Avatar size={64} name={me.display_name || `${me.first_name || ''} ${me.last_name || ''}`.trim()} uri={(me as any)?.avatar_url} />
+        <View style={{ marginLeft: 12, flex: 1 }}>
+          <Text style={{ fontSize: 18, fontWeight: '600' }}>{me.display_name || `${me.first_name || ''} ${me.last_name || ''}`}</Text>
+          <View style={{ height: 6 }} />
+          <Chip label={String(me.type)} selected style={{ alignSelf: 'flex-start' }} />
+        </View>
+      </View>
 
       {!editing ? (
         <ScrollView>
@@ -109,7 +140,7 @@ export default function ProfileScreen({ navigation }: any) {
           </View>
         </ScrollView>
       )}
-    </View>
+    </Screen>
   );
 }
 

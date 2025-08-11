@@ -29,7 +29,7 @@
     },
     "scheme": "linksports",
     "extra": {
-      "apiBaseUrlDev": "http://localhost:3000/api/v1",
+      "apiBaseUrlDev": "http://192.168.1.5:3000/api/v1",
       "apiBaseUrlProd": "https://linksports-web-production.up.railway.app/api/v1"
     }
   }
