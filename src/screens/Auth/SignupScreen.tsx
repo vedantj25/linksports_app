@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
+import { lightTheme as theme } from '../../theme/theme';
 import { useAuthStore } from '../../stores/auth';
 
 export default function SignupScreen() {
@@ -22,7 +23,7 @@ export default function SignupScreen() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Create account</Text>
+      <Text style={[styles.title, { fontFamily: theme.typography.fontPrimaryBold }]}>Create account</Text>
       <TextInput placeholder="Email" style={styles.input} autoCapitalize="none" keyboardType="email-address" value={email} onChangeText={setEmail} />
       <TextInput placeholder="Password" style={styles.input} secureTextEntry value={password} onChangeText={setPassword} />
       <Text style={{ marginBottom: 8 }}>User Type (player/coach/club): {userType}</Text>

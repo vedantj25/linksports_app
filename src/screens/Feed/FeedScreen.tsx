@@ -1,10 +1,11 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { lightTheme as theme } from '../../theme/theme';
 
 export default function FeedScreen() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Feed</Text>
+      <Text style={[styles.title, { fontFamily: theme.typography.fontPrimaryBold }]}>Feed</Text>
       <Text>Coming soon: posts list</Text>
     </View>
   );

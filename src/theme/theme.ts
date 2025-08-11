@@ -11,7 +11,15 @@ export const lightTheme = {
     border: '#E6E6E6'
   },
   radius: { sm: 8, md: 12, full: 999 },
-  spacing: { xs: 4, sm: 8, md: 12, lg: 16, xl: 24, xxl: 32 }
+  spacing: { xs: 4, sm: 8, md: 12, lg: 16, xl: 24, xxl: 32 },
+  typography: {
+    fontPrimary: 'Roboto_400Regular',
+    fontPrimaryMedium: 'Roboto_500Medium',
+    fontPrimaryBold: 'Roboto_700Bold',
+    fontSecondary: 'OpenSans_400Regular',
+    fontSecondarySemibold: 'OpenSans_600SemiBold',
+    fontSecondaryBold: 'OpenSans_700Bold'
+  }
 };
 
 export const darkTheme = {
@@ -27,7 +35,15 @@ export const darkTheme = {
     border: '#2A2A2A'
   },
   radius: { sm: 8, md: 12, full: 999 },
-  spacing: { xs: 4, sm: 8, md: 12, lg: 16, xl: 24, xxl: 32 }
+  spacing: { xs: 4, sm: 8, md: 12, lg: 16, xl: 24, xxl: 32 },
+  typography: {
+    fontPrimary: 'Roboto_400Regular',
+    fontPrimaryMedium: 'Roboto_500Medium',
+    fontPrimaryBold: 'Roboto_700Bold',
+    fontSecondary: 'OpenSans_400Regular',
+    fontSecondarySemibold: 'OpenSans_600SemiBold',
+    fontSecondaryBold: 'OpenSans_700Bold'
+  }
 };
 
 export type Theme = typeof lightTheme;

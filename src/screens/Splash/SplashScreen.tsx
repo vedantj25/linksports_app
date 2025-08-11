@@ -1,10 +1,11 @@
 import React from 'react';
 import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
+import { lightTheme as theme } from '../../theme/theme';
 
 export default function SplashScreen() {
   return (
     <View style={styles.container}>
-      <Text style={styles.logo}>LinkSports</Text>
+      <Text style={[styles.logo, { fontFamily: theme.typography.fontPrimaryBold }]}>LinkSports</Text>
       <ActivityIndicator size="large" color="#FF6B00" />
     </View>
   );

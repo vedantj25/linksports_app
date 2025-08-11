@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
+import { lightTheme as theme } from '../../theme/theme';
 import { useAuthStore } from '../../stores/auth';
 
 export default function LoginScreen() {
@@ -19,7 +20,7 @@ export default function LoginScreen() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Sign in</Text>
+      <Text style={[styles.title, { fontFamily: theme.typography.fontPrimaryBold }]}>Sign in</Text>
       <TextInput placeholder="Email or Username" style={styles.input} autoCapitalize="none" value={identifier} onChangeText={setIdentifier} />
       <TextInput placeholder="Password" style={styles.input} secureTextEntry value={password} onChangeText={setPassword} />
       {error ? <Text style={styles.error}>{error}</Text> : null}

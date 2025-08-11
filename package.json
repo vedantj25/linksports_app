@@ -11,6 +11,8 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@expo-google-fonts/open-sans": "^0.4.1",
+    "@expo-google-fonts/roboto": "^0.4.0",
     "@hookform/resolvers": "^5.2.1",
     "@react-navigation/bottom-tabs": "^7.4.6",
     "@react-navigation/native": "^7.1.17",
@@ -28,12 +30,12 @@
     "react-hook-form": "^7.62.0",
     "react-native": "0.79.5",
     "react-native-encrypted-storage": "^4.0.3",
+    "react-native-gesture-handler": "~2.24.0",
+    "react-native-reanimated": "~3.17.4",
     "react-native-safe-area-context": "^5.6.0",
     "react-native-screens": "^4.13.1",
     "zod": "^4.0.17",
-    "zustand": "^5.0.7",
-    "react-native-gesture-handler": "~2.24.0",
-    "react-native-reanimated": "~3.17.4"
+    "zustand": "^5.0.7"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",

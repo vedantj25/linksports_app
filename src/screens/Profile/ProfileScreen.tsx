@@ -1,10 +1,11 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { lightTheme as theme } from '../../theme/theme';
 
 export default function ProfileScreen() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Profile</Text>
+      <Text style={[styles.title, { fontFamily: theme.typography.fontPrimaryBold }]}>Profile</Text>
       <Text>View and edit your profile</Text>
     </View>
   );
