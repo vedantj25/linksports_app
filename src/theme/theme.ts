@@ -10,7 +10,11 @@ export const lightTheme = {
     primaryHover: '#FF8F33',
     secondary: '#005BBB',
     secondaryAlt: '#4DA3FF',
-    border: '#E6E6E6'
+    border: '#E6E6E6',
+    onPrimary: '#FFFFFF',
+    error: '#D91E18',
+    brandGradientStart: '#0b1930',
+    brandGradientEnd: '#06101f'
   },
   radius: { sm: 8, md: 12, lg: 16, full: 999 },
   spacing: {
@@ -59,7 +63,11 @@ export const darkTheme = {
     primaryHover: '#FF9E4D',
     secondary: '#338FFF',
     secondaryAlt: '#66B3FF',
-    border: '#2A2A2A'
+    border: '#2A2A2A',
+    onPrimary: '#FFFFFF',
+    error: '#D91E18',
+    brandGradientStart: '#0b1930',
+    brandGradientEnd: '#06101f'
   },
   radius: { sm: 8, md: 12, lg: 16, full: 999 },
   spacing: {

@@ -10,3 +10,8 @@ export async function fetchSportCategories() {
   return data?.data?.categories || [];
 }
 
+export async function fetchSportAttributes(sportId: string | number) {
+  const { data } = await api.get(`/sports/${sportId}/attributes`);
+  return data?.data?.attributes || [];
+}
+

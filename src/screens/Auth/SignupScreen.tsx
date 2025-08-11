@@ -51,7 +51,7 @@ export default function SignupScreen() {
               marginRight: theme.spacing.sm
             }}
           >
-            <Text style={{ color: userType === t ? '#FFFFFF' : theme.colors.text, textTransform: 'capitalize', fontSize: theme.typography.sizes.sm }}>{t}</Text>
+            <Text style={{ color: userType === t ? theme.colors.onPrimary : theme.colors.text, textTransform: 'capitalize', fontSize: theme.typography.sizes.sm }}>{t}</Text>
           </Pressable>
         ))}
       </View>

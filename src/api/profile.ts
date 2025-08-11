@@ -6,12 +6,12 @@ export async function fetchMyProfile() {
 }
 
 export async function updateProfile(profileId: string, payload: any) {
-  const { data } = await api.patch(`/profiles/${profileId}`, { profile: payload });
+  const { data } = await api.patch(`/profiles/${profileId}`, { profile: payload, sports: payload?.sports });
   return data?.data?.profile;
 }
 
 export async function completeProfileSetup(profileId: string, payload: any) {
-  const { data } = await api.patch(`/profiles/${profileId}/complete_setup`, { profile: payload });
+  const { data } = await api.patch(`/profiles/${profileId}/complete_setup`, { profile: payload, sports: payload?.sports });
   return data?.data?.profile;
 }
 

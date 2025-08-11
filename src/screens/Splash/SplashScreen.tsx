@@ -18,7 +18,7 @@ export default function SplashScreen() {
   }, [navigation]);
 
   return (
-    <LinearGradient colors={["#0b1930", "#06101f"]} style={styles.container}>
+    <LinearGradient colors={[theme.colors.brandGradientStart, theme.colors.brandGradientEnd]} style={styles.container}>
       <Text style={[styles.logo, { fontFamily: theme.typography.fontPrimaryBold }]}>LinkSports</Text>
       <LoaderLottie size={120} />
     </LinearGradient>

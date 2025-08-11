@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
+import { NavigationContainer, DefaultTheme, DarkTheme, Theme as NavTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
@@ -74,13 +74,26 @@ function AppTabs() {
 
 export function RootNavigator() {
   const colorScheme = useColorScheme();
+  const theme = useTheme();
   const { isAuthenticated, user } = useAuthStore();
   const profileCompleted = !!user?.profile_completed;
 
+  const baseNavTheme = colorScheme === 'dark' ? DarkTheme : DefaultTheme;
+  const navTheme: NavTheme = {
+    ...baseNavTheme,
+    colors: {
+      ...baseNavTheme.colors,
+      primary: theme.colors.primary,
+      background: theme.colors.background,
+      card: theme.colors.card,
+      text: theme.colors.text,
+      border: theme.colors.border,
+      notification: theme.colors.secondary
+    }
+  };
+
   return (
-    <NavigationContainer
-      theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}
-    >
+    <NavigationContainer theme={navTheme}>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         {!isAuthenticated ? (
           <>

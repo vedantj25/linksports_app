@@ -28,7 +28,7 @@ export function Input({ label, error, style, ...props }: Props) {
         placeholderTextColor={theme.colors.secondaryText}
         {...props}
       />
-      {error ? <Text style={[styles.error, { color: '#D91E18', marginTop: theme.spacing.xs }]}>{error}</Text> : null}
+      {error ? <Text style={[styles.error, { color: theme.colors.error, marginTop: theme.spacing.xs }]}>{error}</Text> : null}
     </View>
   );
 }

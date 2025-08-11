@@ -37,7 +37,7 @@ export default function IntroSliderScreen() {
   const slide = slides[index];
 
   return (
-    <LinearGradient colors={["#0b1930", "#06101f"]} style={[styles.container, { padding: theme.spacing.lg, paddingTop: theme.spacing.xl }]}>
+    <LinearGradient colors={[theme.colors.brandGradientStart, theme.colors.brandGradientEnd]} style={[styles.container, { padding: theme.spacing.lg, paddingTop: theme.spacing.xl }]}>
       <View style={styles.topActions}>
         <Pressable onPress={onSkip} hitSlop={12}><Text style={{ color: '#B8C4D9' }}>Skip</Text></Pressable>
       </View>

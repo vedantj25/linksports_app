@@ -20,7 +20,7 @@ export function Button({ title, onPress, variant = 'primary', size = 'md', disab
   const { container, text } = getStyles(theme, variant, size, disabled);
   return (
     <Pressable onPress={onPress} disabled={disabled} style={[container, style]}
-      android_ripple={{ color: '#ffffff22' }}>
+      android_ripple={{ color: `${theme.colors.onPrimary}22` }}>
       <Text style={[text, textStyle]}>{title}</Text>
     </Pressable>
   );
@@ -44,7 +44,7 @@ function getStyles(theme: ReturnType<typeof useTheme>, variant: Variant, size: S
     ghost: { backgroundColor: 'transparent' }
   };
   const textBase: TextStyle = {
-    color: variant === 'outline' || variant === 'ghost' ? theme.colors.text : '#fff',
+    color: variant === 'outline' || variant === 'ghost' ? theme.colors.text : theme.colors.onPrimary,
     fontFamily: theme.typography.fontPrimaryMedium,
     fontSize: theme.typography.sizes.lg
   };

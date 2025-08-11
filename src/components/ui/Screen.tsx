@@ -6,7 +6,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 export default function Screen({ style, children, ...props }: ViewProps) {
   const theme = useTheme();
   return (
-    <SafeAreaView style={[styles.container, { backgroundColor: theme.colors.background }, style]} edges={["top", "bottom", "left", "right"]} {...props}>
+    <SafeAreaView style={[styles.container, { backgroundColor: theme.colors.background }, style]} edges={["top", "left", "right"]} {...props}>
       {children}
     </SafeAreaView>
   );

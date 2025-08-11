@@ -46,7 +46,7 @@ export function AppProvider() {
     error: (props: any) => (
       <ErrorToast
         {...props}
-        style={{ borderLeftColor: '#D91E18', backgroundColor: theme.colors.card }}
+        style={{ borderLeftColor: theme.colors.error, backgroundColor: theme.colors.card }}
         contentContainerStyle={{ paddingHorizontal: theme.spacing.md }}
         text1Style={{ fontSize: theme.typography.sizes.md, fontWeight: '700', color: theme.colors.text }}
         text2Style={{ fontSize: theme.typography.sizes.sm, color: theme.colors.secondaryText }}

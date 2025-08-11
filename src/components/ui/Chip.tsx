@@ -23,13 +23,13 @@ export default function Chip({ label, selected, onPress, style, textStyle }: Pro
           : { borderColor: theme.colors.border, backgroundColor: theme.colors.card },
         style
       ]}
-      android_ripple={{ color: '#00000011', borderless: false }}
+      android_ripple={{ color: `${theme.colors.text}11`, borderless: false }}
     >
       <Text
         style={[
           styles.text,
           { fontSize: theme.typography.sizes.sm },
-          selected ? { color: '#ffffff' } : { color: theme.colors.text },
+          selected ? { color: theme.colors.onPrimary } : { color: theme.colors.text },
           textStyle
         ]}
       >
