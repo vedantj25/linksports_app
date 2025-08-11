@@ -9,6 +9,7 @@ import { useColorScheme } from 'react-native';
 import { useAuthStore } from '../stores/auth';
 import { SplashScreen as Splash, IntroSliderScreen as Intro, LoginScreen as Login, SignupScreen as Signup, FeedScreen as Feed, DiscoverScreen as Discover, ProfileScreen as Profile } from '../screens';
 import ProfileWizardStack from '../screens/Wizard/ProfileWizardStack';
+import { useTheme } from '../theme/ThemeProvider';
 
 // Placeholder screens
 const SplashScreen = Splash;
@@ -26,13 +27,14 @@ const Tabs = createBottomTabNavigator();
 
 function AppTabs() {
   const insets = useSafeAreaInsets();
+  const theme = useTheme();
   const TabBarButton = (props: any) => (
     <Pressable
       {...props}
       android_ripple={undefined}
       style={({ pressed }) => [
-        { borderRadius: 12 },
-        pressed && { backgroundColor: '#00000010' },
+        { borderRadius: theme.radius.md },
+        pressed && { backgroundColor: `${theme.colors.text}10` },
         typeof props.style === 'function' ? props.style({ pressed }) : props.style
       ]}
     />
@@ -42,19 +44,19 @@ function AppTabs() {
       screenOptions={({ route }) => ({
         headerShown: false,
         tabBarShowLabel: true,
-        tabBarActiveTintColor: '#FF6B00',
-        tabBarInactiveTintColor: '#8A8A8A',
+        tabBarActiveTintColor: theme.colors.primary,
+        tabBarInactiveTintColor: theme.colors.secondaryText,
         tabBarStyle: {
           height: 48 + (insets.bottom || 0),
           paddingBottom: Math.max(insets.bottom, 4),
-          backgroundColor: '#ffffff',
-          borderTopColor: '#e6e6e6'
+          backgroundColor: theme.colors.card,
+          borderTopColor: theme.colors.border
         },
         tabBarHideOnKeyboard: true,
         tabBarPressColor: 'transparent',
         tabBarButton: (props) => <TabBarButton {...props} />,
         tabBarIcon: ({ focused, color, size }) => {
-          const iconSize = 20;
+          const iconSize = theme.sizes.md;
           let iconName: keyof typeof Ionicons.glyphMap = 'home';
           if (route.name === 'Feed') iconName = focused ? 'home' : 'home-outline';
           if (route.name === 'Discover') iconName = focused ? 'compass' : 'compass-outline';

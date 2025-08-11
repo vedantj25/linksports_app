@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, Pressable } from 'react-native';
-import { lightTheme as theme } from '../../theme/theme';
+import { useTheme } from '../../theme/ThemeProvider';
 import { useAuthStore } from '../../stores/auth';
 import Input from '../../components/ui/Input';
 import Button from '../../components/ui/Button';
@@ -9,6 +9,7 @@ import * as Haptics from 'expo-haptics';
 import Toast from 'react-native-toast-message';
 
 export default function SignupScreen() {
+  const theme = useTheme();
   const register = useAuthStore((s) => s.register);
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
@@ -30,41 +31,45 @@ export default function SignupScreen() {
   };
 
   return (
-    <Screen style={styles.container}>
-      <Text style={[styles.title, { fontFamily: theme.typography.fontPrimaryBold }]}>Create account</Text>
+    <Screen style={[styles.container, { padding: theme.spacing.lg }]}>
+      <Text style={{ fontFamily: theme.typography.fontPrimaryBold, fontSize: theme.typography.sizes.xl, marginBottom: theme.spacing.md, color: theme.colors.text }}>Create account</Text>
       <Input placeholder="Email" autoCapitalize="none" keyboardType="email-address" value={email} onChangeText={setEmail} />
       <Input placeholder="Password" secureTextEntry value={password} onChangeText={setPassword} />
-      <Text style={{ marginBottom: 8 }}>I am a</Text>
-      <View style={{ flexDirection: 'row', marginBottom: 12 }}>
+      <Text style={{ marginBottom: theme.spacing.xs, color: theme.colors.text }}>I am a</Text>
+      <View style={{ flexDirection: 'row', marginBottom: theme.spacing.md }}>
         {(['player', 'coach', 'club'] as const).map(t => (
-          <Pressable key={t} onPress={() => setUserType(t)} style={[styles.chip, userType === t && styles.chipActive]}>
-            <Text style={[styles.chipText, userType === t && styles.chipTextActive]}>{t}</Text>
+          <Pressable
+            key={t}
+            onPress={() => setUserType(t)}
+            style={{
+              paddingVertical: theme.spacing.sm,
+              paddingHorizontal: theme.spacing.md,
+              borderRadius: theme.radius.lg,
+              borderWidth: 1,
+              borderColor: userType === t ? theme.colors.primary : theme.colors.border,
+              backgroundColor: userType === t ? theme.colors.primary : theme.colors.card,
+              marginRight: theme.spacing.sm
+            }}
+          >
+            <Text style={{ color: userType === t ? '#FFFFFF' : theme.colors.text, textTransform: 'capitalize', fontSize: theme.typography.sizes.sm }}>{t}</Text>
           </Pressable>
         ))}
       </View>
       {error ? <Text style={styles.error}>{error}</Text> : null}
       <Button title="Create account" onPress={onSubmit} style={{ width: '100%' }} />
-      <Pressable style={{ marginTop: 12 }} hitSlop={8}>
-        <Text style={styles.ghostLink}>I already have an account</Text>
+      <Pressable style={{ marginTop: theme.spacing.sm }} hitSlop={8}>
+        <Text style={{ color: theme.colors.text, opacity: 0.7, textAlign: 'center' }}>I already have an account</Text>
       </Pressable>
-      <View style={styles.legal}>
-        <Text style={styles.legalText}>By continuing you agree to our <Text style={styles.legalLink}>Terms</Text> and <Text style={styles.legalLink}>Privacy Policy</Text>.</Text>
+      <View style={{ marginTop: theme.spacing.xl }}>
+        <Text style={{ color: theme.colors.secondaryText, textAlign: 'center' }}>By continuing you agree to our <Text style={{ color: theme.colors.secondary }}>Terms</Text> and <Text style={{ color: theme.colors.secondary }}>Privacy Policy</Text>.</Text>
       </View>
     </Screen>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 20, justifyContent: 'center' },
-  title: { fontSize: 26, fontWeight: '700', marginBottom: 12 },
+  container: { flex: 1, justifyContent: 'center' },
   error: { color: 'red', marginBottom: 8 },
-  chip: { paddingVertical: 10, paddingHorizontal: 14, borderRadius: 20, borderWidth: 1, borderColor: '#E6E6E6', marginRight: 8 },
-  chipActive: { backgroundColor: '#FF6B00', borderColor: '#FF6B00' },
-  chipText: { color: '#121212', textTransform: 'capitalize' },
-  chipTextActive: { color: '#FFFFFF' },
-  ghostLink: { color: '#121212', opacity: 0.7, textAlign: 'center' },
-  legal: { marginTop: 24 },
-  legalText: { color: '#666', textAlign: 'center' },
-  legalLink: { color: '#005BBB' }
+  ghostLink: { color: '#121212', opacity: 0.7, textAlign: 'center' }
 });
 

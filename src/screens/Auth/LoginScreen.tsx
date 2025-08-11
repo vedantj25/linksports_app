@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, Pressable } from 'react-native';
-import { lightTheme as theme } from '../../theme/theme';
+import { useTheme } from '../../theme/ThemeProvider';
 import { useAuthStore } from '../../stores/auth';
 import Input from '../../components/ui/Input';
 import Button from '../../components/ui/Button';
@@ -10,6 +10,7 @@ import * as Haptics from 'expo-haptics';
 import Toast from 'react-native-toast-message';
 
 export default function LoginScreen() {
+  const theme = useTheme();
   const login = useAuthStore((s) => s.login);
   const [identifier, setIdentifier] = React.useState('');
   const [password, setPassword] = React.useState('');
@@ -30,8 +31,8 @@ export default function LoginScreen() {
   };
 
   return (
-    <Screen style={styles.container}>
-      <Text style={[styles.title, { fontFamily: theme.typography.fontPrimaryBold }]}>Sign in</Text>
+    <Screen style={[styles.container, { padding: theme.spacing.lg }]}>
+      <Text style={{ fontFamily: theme.typography.fontPrimaryBold, fontSize: theme.typography.sizes.xl, marginBottom: theme.spacing.md, color: theme.colors.text }}>Sign in</Text>
       <Input
         placeholder="Email or Username"
         autoCapitalize="none"
@@ -45,34 +46,28 @@ export default function LoginScreen() {
           value={password}
           onChangeText={setPassword}
         />
-        <Pressable style={styles.eye} onPress={() => setShowPassword(p => !p)} hitSlop={12}>
-          <Ionicons name={showPassword ? 'eye-off' : 'eye'} size={20} color="#8A8A8A" />
+        <Pressable style={[styles.eye, { right: theme.spacing.md, top: 44 }]} onPress={() => setShowPassword(p => !p)} hitSlop={12}>
+          <Ionicons name={showPassword ? 'eye-off' : 'eye'} size={20} color={theme.colors.secondaryText} />
         </Pressable>
       </View>
       <Pressable hitSlop={8}>
-        <Text style={styles.link}>Forgot password?</Text>
+        <Text style={{ color: theme.colors.secondary, alignSelf: 'flex-end', marginBottom: theme.spacing.sm }}>Forgot password?</Text>
       </Pressable>
       {error ? <Text style={styles.error}>{error}</Text> : null}
-      <Button title="Sign in" onPress={onSubmit} style={{ width: '100%', marginTop: 4 }} />
-      <Pressable style={{ marginTop: 12 }} hitSlop={8}>
-        <Text style={styles.ghostLink}>Create account</Text>
+      <Button title="Sign in" onPress={onSubmit} style={{ width: '100%', marginTop: theme.spacing.xs }} />
+      <Pressable style={{ marginTop: theme.spacing.sm }} hitSlop={8}>
+        <Text style={{ color: theme.colors.text, opacity: 0.7, textAlign: 'center' }}>Create account</Text>
       </Pressable>
-      <View style={styles.legal}>
-        <Text style={styles.legalText}>By continuing you agree to our <Text style={styles.legalLink}>Terms</Text> and <Text style={styles.legalLink}>Privacy Policy</Text>.</Text>
+      <View style={{ marginTop: theme.spacing.xl }}>
+        <Text style={{ color: theme.colors.secondaryText, textAlign: 'center' }}>By continuing you agree to our <Text style={{ color: theme.colors.secondary }}>Terms</Text> and <Text style={{ color: theme.colors.secondary }}>Privacy Policy</Text>.</Text>
       </View>
     </Screen>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 20, justifyContent: 'center' },
-  title: { fontSize: 26, fontWeight: '700', marginBottom: 12 },
+  container: { flex: 1, justifyContent: 'center' },
   error: { color: 'red', marginBottom: 8 },
-  link: { color: '#005BBB', alignSelf: 'flex-end', marginBottom: 8 },
-  ghostLink: { color: '#121212', opacity: 0.7, textAlign: 'center' },
-  eye: { position: 'absolute', right: 12, top: 44 },
-  legal: { marginTop: 24 },
-  legalText: { color: '#666', textAlign: 'center' },
-  legalLink: { color: '#005BBB' }
+  eye: { position: 'absolute' }
 });
 

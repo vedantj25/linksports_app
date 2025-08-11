@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView, ActivityIndicator, Alert } from 'react-native';
-import { lightTheme as theme } from '../../theme/theme';
+import { useTheme } from '../../theme/ThemeProvider';
 import { useAuthStore } from '../../stores/auth';
 import ProfileIncompleteBanner from '../../components/Banners/ProfileIncompleteBanner';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
@@ -14,6 +14,7 @@ import Avatar from '../../components/ui/Avatar';
 import Chip from '../../components/ui/Chip';
 
 export default function ProfileScreen({ navigation }: any) {
+  const theme = useTheme();
   const user = useAuthStore((s) => s.user);
   const logout = useAuthStore((s) => s.logout);
   const incomplete = !user?.profile_completed;
@@ -72,63 +73,63 @@ export default function ProfileScreen({ navigation }: any) {
   }
 
   return (
-    <Screen style={styles.container}>
+    <Screen style={[styles.container, { padding: theme.spacing.lg }]}>
       {incomplete && <ProfileIncompleteBanner onPress={() => navigation.navigate('Wizard')} />}
-      <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
-        <Text style={[styles.title, { fontFamily: theme.typography.fontPrimaryBold }]}>Profile</Text>
+      <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: theme.spacing.md }}>
+        <Text style={{ fontFamily: theme.typography.fontPrimaryBold, fontSize: theme.typography.sizes.xl, color: theme.colors.text }}>Profile</Text>
         <Button title="Logout" variant="outline" onPress={logout} />
       </View>
 
-      <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 16 }}>
+      <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: theme.spacing.lg }}>
         <Avatar size={64} name={me.display_name || `${me.first_name || ''} ${me.last_name || ''}`.trim()} uri={(me as any)?.avatar_url} />
-        <View style={{ marginLeft: 12, flex: 1 }}>
-          <Text style={{ fontSize: 18, fontWeight: '600' }}>{me.display_name || `${me.first_name || ''} ${me.last_name || ''}`}</Text>
-          <View style={{ height: 6 }} />
+        <View style={{ marginLeft: theme.spacing.md, flex: 1 }}>
+          <Text style={{ fontSize: theme.typography.sizes.lg, fontWeight: '600', color: theme.colors.text }}>{me.display_name || `${me.first_name || ''} ${me.last_name || ''}`}</Text>
+          <View style={{ height: theme.spacing.xs }} />
           <Chip label={String(me.type)} selected style={{ alignSelf: 'flex-start' }} />
         </View>
       </View>
 
       {!editing ? (
         <ScrollView>
-          <Card style={{ marginBottom: 12 }}>
-            <Text style={styles.sectionTitle}>Basic</Text>
+          <Card style={{ marginBottom: theme.spacing.md }}>
+            <Text style={[styles.sectionTitle, { color: theme.colors.text }]}>Basic</Text>
             <Text style={styles.label}>Name</Text>
-            <Text style={styles.value}>{me.display_name || `${me.first_name || ''} ${me.last_name || ''}`}</Text>
+            <Text style={[styles.value, { color: theme.colors.text }]}>{me.display_name || `${me.first_name || ''} ${me.last_name || ''}`}</Text>
             <Text style={styles.label}>Bio</Text>
-            <Text style={styles.value}>{me.bio || '-'}</Text>
+            <Text style={[styles.value, { color: theme.colors.text }]}>{me.bio || '-'}</Text>
             <Text style={styles.label}>Location</Text>
-            <Text style={styles.value}>{[me.location_city, me.location_state].filter(Boolean).join(', ') || '-'}</Text>
+            <Text style={[styles.value, { color: theme.colors.text }]}>{[me.location_city, me.location_state].filter(Boolean).join(', ') || '-'}</Text>
           </Card>
 
-          <Card style={{ marginBottom: 12 }}>
-            <Text style={styles.sectionTitle}>Links</Text>
+          <Card style={{ marginBottom: theme.spacing.md }}>
+            <Text style={[styles.sectionTitle, { color: theme.colors.text }]}>Links</Text>
             <Text style={styles.label}>Website</Text>
-            <Text style={styles.value}>{me.website_url || '-'}</Text>
+            <Text style={[styles.value, { color: theme.colors.text }]}>{me.website_url || '-'}</Text>
             <Text style={styles.label}>Instagram</Text>
-            <Text style={styles.value}>{me.instagram_url || '-'}</Text>
+            <Text style={[styles.value, { color: theme.colors.text }]}>{me.instagram_url || '-'}</Text>
             <Text style={styles.label}>YouTube</Text>
-            <Text style={styles.value}>{me.youtube_url || '-'}</Text>
+            <Text style={[styles.value, { color: theme.colors.text }]}>{me.youtube_url || '-'}</Text>
           </Card>
 
-          <Card style={{ marginBottom: 12 }}>
-            <Text style={styles.sectionTitle}>Role</Text>
-            <Text style={styles.value}>{me.type}</Text>
+          <Card style={{ marginBottom: theme.spacing.md }}>
+            <Text style={[styles.sectionTitle, { color: theme.colors.text }]}>Role</Text>
+            <Text style={[styles.value, { color: theme.colors.text }]}>{me.type}</Text>
           </Card>
 
           <Button title="Edit" onPress={() => setEditing(true)} />
         </ScrollView>
       ) : (
         <ScrollView>
-          <Card style={{ marginBottom: 12 }}>
-            <Text style={styles.sectionTitle}>Edit Profile</Text>
+          <Card style={{ marginBottom: theme.spacing.md }}>
+            <Text style={[styles.sectionTitle, { color: theme.colors.text }]}>Edit Profile</Text>
             <Input label="Display name" value={form.display_name} onChangeText={(v) => setForm((p: any) => ({ ...p, display_name: v }))} />
             <Input label="Bio" value={form.bio} onChangeText={(v) => setForm((p: any) => ({ ...p, bio: v }))} multiline />
             <Input label="City" value={form.location_city} onChangeText={(v) => setForm((p: any) => ({ ...p, location_city: v }))} />
             <Input label="State" value={form.location_state} onChangeText={(v) => setForm((p: any) => ({ ...p, location_state: v }))} />
           </Card>
 
-          <Card style={{ marginBottom: 12 }}>
-            <Text style={styles.sectionTitle}>Links</Text>
+          <Card style={{ marginBottom: theme.spacing.md }}>
+            <Text style={[styles.sectionTitle, { color: theme.colors.text }]}>Links</Text>
             <Input label="Website" value={form.website_url} onChangeText={(v) => setForm((p: any) => ({ ...p, website_url: v }))} />
             <Input label="Instagram" value={form.instagram_url} onChangeText={(v) => setForm((p: any) => ({ ...p, instagram_url: v }))} />
             <Input label="YouTube" value={form.youtube_url} onChangeText={(v) => setForm((p: any) => ({ ...p, youtube_url: v }))} />
@@ -145,10 +146,10 @@ export default function ProfileScreen({ navigation }: any) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 16 },
+  container: { flex: 1 },
   title: { fontSize: 22, fontWeight: '600', marginBottom: 8 },
   sectionTitle: { fontSize: 16, fontWeight: '600', marginBottom: 8 },
   label: { color: '#666', marginTop: 8 },
-  value: { color: theme.colors.text, marginTop: 2 }
+  value: { marginTop: 2 }
 });
 

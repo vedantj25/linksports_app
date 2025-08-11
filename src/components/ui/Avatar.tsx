@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, ViewStyle, TextStyle } from 'react-native';
+import { useTheme } from '../../theme/ThemeProvider';
 import { Ionicons } from '@expo/vector-icons';
 
 interface Props {
@@ -11,6 +12,7 @@ interface Props {
 }
 
 export default function Avatar({ size = 48, name, uri, style, textStyle }: Props) {
+  const theme = useTheme();
   const initials = React.useMemo(() => {
     const n = (name || '').trim();
     if (!n) return '';
@@ -21,24 +23,24 @@ export default function Avatar({ size = 48, name, uri, style, textStyle }: Props
   }, [name]);
 
   if (uri) {
-    return <Image source={{ uri }} style={[styles.image, { width: size, height: size, borderRadius: size / 2 }, style]} />;
+    return <Image source={{ uri }} style={[styles.image, { width: size, height: size, borderRadius: size / 2, backgroundColor: theme.colors.border }, style]} />;
   }
 
   return (
-    <View style={[styles.fallback, { width: size, height: size, borderRadius: size / 2 }, style]}>
+    <View style={[styles.fallback, { width: size, height: size, borderRadius: size / 2, backgroundColor: theme.colors.card }, style]}>
       {initials ? (
-        <Text style={[styles.initials, { fontSize: size * 0.38 }, textStyle]}>{initials}</Text>
+        <Text style={[styles.initials, { fontSize: size * 0.38, color: theme.colors.text }, textStyle]}>{initials}</Text>
       ) : (
-        <Ionicons name="person" size={size * 0.6} color="#9AA6B2" />
+        <Ionicons name="person" size={size * 0.6} color={theme.colors.secondaryText} />
       )}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  image: { backgroundColor: '#e9eef5' },
-  fallback: { backgroundColor: '#e9eef5', alignItems: 'center', justifyContent: 'center' },
-  initials: { color: '#4B5563', fontWeight: '700' }
+  image: {},
+  fallback: { alignItems: 'center', justifyContent: 'center' },
+  initials: { fontWeight: '700' }
 });
 
 

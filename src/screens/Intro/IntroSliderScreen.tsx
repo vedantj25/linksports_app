@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, Dimensions, Pressable } from 'react-native';
-import { lightTheme as theme } from '../../theme/theme';
+import { useTheme } from '../../theme/ThemeProvider';
 import { useNavigation } from '@react-navigation/native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
@@ -25,6 +25,7 @@ const slides = [
 ];
 
 export default function IntroSliderScreen() {
+  const theme = useTheme();
   const nav = useNavigation<any>();
   const [index, setIndex] = React.useState(0);
   const isLast = index === slides.length - 1;
@@ -36,38 +37,38 @@ export default function IntroSliderScreen() {
   const slide = slides[index];
 
   return (
-    <LinearGradient colors={["#0b1930", "#06101f"]} style={styles.container}>
+    <LinearGradient colors={["#0b1930", "#06101f"]} style={[styles.container, { padding: theme.spacing.lg, paddingTop: theme.spacing.xl }]}>
       <View style={styles.topActions}>
-        <Pressable onPress={onSkip} hitSlop={12}><Text style={styles.skip}>Skip</Text></Pressable>
+        <Pressable onPress={onSkip} hitSlop={12}><Text style={{ color: '#B8C4D9' }}>Skip</Text></Pressable>
       </View>
 
       <View style={styles.slideContainer}>
-        <View style={styles.iconWrap}>
+        <View style={{ width: 96, height: 96, borderRadius: 48, backgroundColor: '#ffffff10', alignItems: 'center', justifyContent: 'center', marginBottom: 24 }}>
           <Ionicons name={slide.icon as any} size={64} color="#FF6B00" />
         </View>
         <LoaderLottie size={72} />
-        <Text style={[styles.title, { fontFamily: theme.typography.fontPrimaryBold }]}>{slide.title}</Text>
-        <Text style={[styles.subtitle, { fontFamily: theme.typography.fontSecondary }]}>{slide.body}</Text>
+        <Text style={{ fontSize: 28, color: '#FFFFFF', marginBottom: theme.spacing.sm, textAlign: 'center', fontFamily: theme.typography.fontPrimaryBold }}>{slide.title}</Text>
+        <Text style={{ fontSize: 16, color: '#B8C4D9', textAlign: 'center', paddingHorizontal: theme.spacing.lg, fontFamily: theme.typography.fontSecondary }}>{slide.body}</Text>
       </View>
 
       <View style={styles.footer}>
-        <View style={styles.dots}>
+        <View style={{ flexDirection: 'row', alignSelf: 'center', marginBottom: theme.spacing.md }}>
           {slides.map((_, i) => (
-            <View key={i} style={[styles.dot, i === index && styles.dotActive]} />
+            <View key={i} style={[{ width: 8, height: 8, borderRadius: 4, backgroundColor: '#ffffff33', marginHorizontal: 4 }, i === index && { backgroundColor: '#FF6B00' }]} />
           ))}
         </View>
         {!isLast ? (
-          <Pressable style={styles.cta} onPress={onNext} android_ripple={{ color: '#ffffff22' }}>
-            <Text style={styles.ctaText}>Next</Text>
+          <Pressable style={{ width: '100%', paddingVertical: 14, borderRadius: 12, borderWidth: 1, borderColor: '#2b3a55', alignItems: 'center' }} onPress={onNext} android_ripple={{ color: '#ffffff22' }}>
+            <Text style={{ color: '#D6DEED', fontSize: 16 }}>Next</Text>
           </Pressable>
         ) : (
           <View style={{ width: '100%' }}>
-            <Pressable style={[styles.cta, styles.ctaPrimary]} onPress={onGetStarted} android_ripple={{ color: '#ffffff22' }}>
-              <Text style={styles.ctaPrimaryText}>Continue with email</Text>
+            <Pressable style={{ width: '100%', paddingVertical: 14, borderRadius: 12, borderWidth: 1, borderColor: '#FF6B00', backgroundColor: '#FF6B00', alignItems: 'center' }} onPress={onGetStarted} android_ripple={{ color: '#ffffff22' }}>
+              <Text style={{ color: '#FFFFFF', fontSize: 16, fontWeight: '600', textAlign: 'center' }}>Continue with email</Text>
             </Pressable>
-            <View style={{ height: 12 }} />
-            <Pressable style={styles.cta} onPress={onSkip} android_ripple={{ color: '#ffffff22' }}>
-              <Text style={styles.ctaText}>I already have an account</Text>
+            <View style={{ height: theme.spacing.sm }} />
+            <Pressable style={{ width: '100%', paddingVertical: 14, borderRadius: 12, borderWidth: 1, borderColor: '#2b3a55', alignItems: 'center' }} onPress={onSkip} android_ripple={{ color: '#ffffff22' }}>
+              <Text style={{ color: '#D6DEED', fontSize: 16 }}>I already have an account</Text>
             </Pressable>
           </View>
         )}
@@ -77,26 +78,9 @@ export default function IntroSliderScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 24, paddingTop: 48 },
+  container: { flex: 1 },
   topActions: { alignItems: 'flex-end' },
-  skip: { color: '#B8C4D9' },
   slideContainer: { flex: 1, justifyContent: 'center', alignItems: 'center' },
-  iconWrap: {
-    width: 96, height: 96, borderRadius: 48, backgroundColor: '#ffffff10',
-    alignItems: 'center', justifyContent: 'center', marginBottom: 24
-  },
-  title: { fontSize: 28, color: '#FFFFFF', marginBottom: 8, textAlign: 'center' },
-  subtitle: { fontSize: 16, color: '#B8C4D9', textAlign: 'center', paddingHorizontal: 16 },
-  footer: { paddingBottom: 16 },
-  dots: { flexDirection: 'row', alignSelf: 'center', marginBottom: 16 },
-  dot: { width: 8, height: 8, borderRadius: 4, backgroundColor: '#ffffff33', marginHorizontal: 4 },
-  dotActive: { backgroundColor: '#FF6B00' },
-  cta: {
-    width: '100%', paddingVertical: 14, borderRadius: 12,
-    borderWidth: 1, borderColor: '#2b3a55', alignItems: 'center'
-  },
-  ctaText: { color: '#D6DEED', fontSize: 16 },
-  ctaPrimary: { backgroundColor: '#FF6B00', borderColor: '#FF6B00' },
-  ctaPrimaryText: { color: '#FFFFFF', fontSize: 16, fontWeight: '600', textAlign: 'center' }
+  footer: { paddingBottom: 16 }
 });
 

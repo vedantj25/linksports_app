@@ -1,11 +1,12 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { lightTheme as theme } from '../../theme/theme';
+import { useTheme } from '../../theme/ThemeProvider';
 import { LinearGradient } from 'expo-linear-gradient';
 import LoaderLottie from '../../components/ui/LoaderLottie';
 
 export default function SplashScreen() {
+  const theme = useTheme();
   const navigation = useNavigation();
 
   React.useEffect(() => {

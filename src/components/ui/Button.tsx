@@ -1,6 +1,6 @@
 import React from 'react';
 import { Pressable, Text, StyleSheet, ViewStyle, TextStyle } from 'react-native';
-import { lightTheme as theme } from '../../theme/theme';
+import { useTheme } from '../../theme/ThemeProvider';
 
 type Variant = 'primary' | 'secondary' | 'outline' | 'ghost';
 type Size = 'sm' | 'md' | 'lg';
@@ -16,7 +16,8 @@ interface ButtonProps {
 }
 
 export function Button({ title, onPress, variant = 'primary', size = 'md', disabled, style, textStyle }: ButtonProps) {
-  const { container, text } = getStyles(variant, size, disabled);
+  const theme = useTheme();
+  const { container, text } = getStyles(theme, variant, size, disabled);
   return (
     <Pressable onPress={onPress} disabled={disabled} style={[container, style]}
       android_ripple={{ color: '#ffffff22' }}>
@@ -25,19 +26,19 @@ export function Button({ title, onPress, variant = 'primary', size = 'md', disab
   );
 }
 
-function getStyles(variant: Variant, size: Size, disabled?: boolean) {
+function getStyles(theme: ReturnType<typeof useTheme>, variant: Variant, size: Size, disabled?: boolean) {
   const base: ViewStyle = {
     borderRadius: theme.radius.md,
     alignItems: 'center',
     justifyContent: 'center'
   };
   const paddings: Record<Size, ViewStyle> = {
-    sm: { paddingVertical: 8, paddingHorizontal: 12 },
-    md: { paddingVertical: 12, paddingHorizontal: 16 },
-    lg: { paddingVertical: 16, paddingHorizontal: 20 }
+    sm: { paddingVertical: theme.spacing.sm, paddingHorizontal: theme.spacing.md },
+    md: { paddingVertical: theme.spacing.md, paddingHorizontal: theme.spacing.lg },
+    lg: { paddingVertical: theme.spacing.lg, paddingHorizontal: theme.spacing.xl }
   };
   const colors: Record<Variant, ViewStyle> = {
-    primary: { backgroundColor: disabled ? '#ff6b0088' : theme.colors.primary },
+    primary: { backgroundColor: disabled ? `${theme.colors.primary}88` : theme.colors.primary },
     secondary: { backgroundColor: theme.colors.secondary },
     outline: { borderColor: theme.colors.border, borderWidth: 1, backgroundColor: 'transparent' },
     ghost: { backgroundColor: 'transparent' }
@@ -45,7 +46,7 @@ function getStyles(variant: Variant, size: Size, disabled?: boolean) {
   const textBase: TextStyle = {
     color: variant === 'outline' || variant === 'ghost' ? theme.colors.text : '#fff',
     fontFamily: theme.typography.fontPrimaryMedium,
-    fontSize: 16
+    fontSize: theme.typography.sizes.lg
   };
 
   return StyleSheet.create({
