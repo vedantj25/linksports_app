@@ -23,7 +23,7 @@
 - Feed/Posts
   - Needed: `GET /api/v1/posts` (with pagination), `POST /api/v1/posts` (text + image + link), `POST /api/v1/posts/:id/like`, `DELETE /api/v1/posts/:id/unlike`
   - Current: Only server-side HTML `resources :posts, only: [:create]` outside API; no JSON posts controller under `api/v1`.
-
+̀
 - Connections/Discovery
   - Needed: `GET /api/v1/connections`, `GET /api/v1/connections/requests`, `POST /api/v1/connections`, `PATCH /api/v1/connections/:id` (accept/reject), `DELETE /api/v1/connections/:id`.
   - Current: Not present in API namespace.
