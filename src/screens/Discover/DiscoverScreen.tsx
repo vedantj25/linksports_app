@@ -17,12 +17,14 @@ export default function DiscoverScreen() {
   const items = data?.profiles || [];
 
   return (
-    <Screen style={[styles.container, { padding: theme.spacing.lg }]}>
-      <Text style={{ fontFamily: theme.typography.fontPrimaryBold, fontSize: theme.typography.sizes.xl, marginBottom: theme.spacing.md, color: theme.colors.text }}>Discover</Text>
-      <Input placeholder="Search by name or bio" value={query} onChangeText={setQuery} />
-      <Input placeholder="Location" value={location} onChangeText={setLocation} />
+    <Screen style={[styles.container]}>
+      <View style={{ paddingHorizontal: theme.spacing.lg }}>
+        <Text style={{ fontFamily: theme.typography.fontPrimaryBold, fontSize: theme.typography.sizes.xl, marginBottom: theme.spacing.md, color: theme.colors.text }}>Discover</Text>
+        <Input placeholder="Search by name or bio" value={query} onChangeText={setQuery} />
+        <Input placeholder="Location" value={location} onChangeText={setLocation} />
+      </View>
       {isLoading ? (
-        <View style={{ paddingTop: theme.spacing.sm }}>
+        <View style={{ paddingTop: theme.spacing.sm, paddingHorizontal: theme.spacing.lg }}>
           {[...Array(6)].map((_, i) => (
             <View key={i} style={{ marginBottom: theme.spacing.lg }}>
               <Skeleton width={220} height={14} />
@@ -41,8 +43,10 @@ export default function DiscoverScreen() {
         <FlatList
           data={items}
           keyExtractor={(item) => item.id}
+          contentInsetAdjustmentBehavior="never"
+          scrollIndicatorInsets={{ top: 0, bottom: 0 }}
           renderItem={({ item }) => (
-            <View style={{ paddingVertical: theme.spacing.md, borderBottomWidth: 1, borderBottomColor: theme.colors.border }}>
+            <View style={{ paddingVertical: theme.spacing.md, paddingHorizontal: theme.spacing.lg, borderBottomWidth: 1, borderBottomColor: theme.colors.border }}>
               <Text style={{ fontWeight: '600', color: theme.colors.text }}>{item.display_name || `${item.first_name} ${item.last_name}`}</Text>
               <Text style={{ color: theme.colors.secondaryText }}>{item.location_city}{item.location_state ? `, ${item.location_state}` : ''}</Text>
             </View>

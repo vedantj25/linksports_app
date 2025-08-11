@@ -20,13 +20,15 @@ export default function FeedScreen({ navigation }: any) {
   }, []);
 
   return (
-    <Screen style={[styles.container, { padding: theme.spacing.lg }]}>
-      {incomplete && (
-        <ProfileIncompleteBanner onPress={() => navigation.navigate('Wizard')} />
-      )}
-      <Text style={{ fontFamily: theme.typography.fontPrimaryBold, fontSize: theme.typography.sizes.xl, marginBottom: theme.spacing.md, color: theme.colors.text }}>Feed</Text>
+    <Screen style={[styles.container]}>
+      <View style={{ paddingHorizontal: theme.spacing.lg }}>
+        {incomplete && (
+          <ProfileIncompleteBanner onPress={() => navigation.navigate('Wizard')} />
+        )}
+        <Text style={{ fontFamily: theme.typography.fontPrimaryBold, fontSize: theme.typography.sizes.xl, marginBottom: theme.spacing.md, color: theme.colors.text }}>Feed</Text>
+      </View>
       {loading ? (
-        <View style={{ paddingTop: theme.spacing.sm }}>
+        <View style={{ paddingTop: theme.spacing.sm, paddingHorizontal: theme.spacing.lg }}>
           {[...Array(6)].map((_, i) => (
             <View key={i} style={{ marginBottom: theme.spacing.lg }}>
               <Skeleton width={160} height={14} />
@@ -44,7 +46,9 @@ export default function FeedScreen({ navigation }: any) {
           onPressCta={() => navigation.navigate('Discover')}
         />
       ) : (
-        <Text>Posts will render here.</Text>
+        <View style={{ paddingHorizontal: theme.spacing.lg }}>
+          <Text>Posts will render here.</Text>
+        </View>
       )}
     </Screen>
   );

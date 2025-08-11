@@ -73,24 +73,26 @@ export default function ProfileScreen({ navigation }: any) {
   }
 
   return (
-    <Screen style={[styles.container, { padding: theme.spacing.lg }]}>
-      {incomplete && <ProfileIncompleteBanner onPress={() => navigation.navigate('Wizard')} />}
-      <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: theme.spacing.md }}>
-        <Text style={{ fontFamily: theme.typography.fontPrimaryBold, fontSize: theme.typography.sizes.xl, color: theme.colors.text }}>Profile</Text>
-        <Button title="Logout" variant="outline" onPress={logout} />
-      </View>
+    <Screen style={[styles.container]}>
+      <View style={{ paddingHorizontal: theme.spacing.lg }}>
+        {incomplete && <ProfileIncompleteBanner onPress={() => navigation.navigate('Wizard')} />}
+        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: theme.spacing.md }}>
+          <Text style={{ fontFamily: theme.typography.fontPrimaryBold, fontSize: theme.typography.sizes.xl, color: theme.colors.text }}>Profile</Text>
+          <Button title="Logout" variant="outline" onPress={logout} />
+        </View>
 
-      <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: theme.spacing.lg }}>
-        <Avatar size={64} name={me.display_name || `${me.first_name || ''} ${me.last_name || ''}`.trim()} uri={(me as any)?.avatar_url} />
-        <View style={{ marginLeft: theme.spacing.md, flex: 1 }}>
-          <Text style={{ fontSize: theme.typography.sizes.lg, fontWeight: '600', color: theme.colors.text }}>{me.display_name || `${me.first_name || ''} ${me.last_name || ''}`}</Text>
-          <View style={{ height: theme.spacing.xs }} />
-          <Chip label={String(me.type)} selected style={{ alignSelf: 'flex-start' }} />
+        <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: theme.spacing.lg }}>
+          <Avatar size={64} name={me.display_name || `${me.first_name || ''} ${me.last_name || ''}`.trim()} uri={(me as any)?.avatar_url} />
+          <View style={{ marginLeft: theme.spacing.md, flex: 1 }}>
+            <Text style={{ fontSize: theme.typography.sizes.lg, fontWeight: '600', color: theme.colors.text }}>{me.display_name || `${me.first_name || ''} ${me.last_name || ''}`}</Text>
+            <View style={{ height: theme.spacing.xs }} />
+            <Chip label={String(me.type)} selected style={{ alignSelf: 'flex-start' }} />
+          </View>
         </View>
       </View>
 
       {!editing ? (
-        <ScrollView>
+        <ScrollView contentContainerStyle={{ paddingHorizontal: theme.spacing.lg, paddingBottom: theme.spacing.sm }}>
           <Card style={{ marginBottom: theme.spacing.md }}>
             <Text style={[styles.sectionTitle, { color: theme.colors.text }]}>Basic</Text>
             <Text style={styles.label}>Name</Text>
@@ -119,7 +121,7 @@ export default function ProfileScreen({ navigation }: any) {
           <Button title="Edit" onPress={() => setEditing(true)} />
         </ScrollView>
       ) : (
-        <ScrollView>
+        <ScrollView contentContainerStyle={{ paddingHorizontal: theme.spacing.lg, paddingBottom: theme.spacing.sm }}>
           <Card style={{ marginBottom: theme.spacing.md }}>
             <Text style={[styles.sectionTitle, { color: theme.colors.text }]}>Edit Profile</Text>
             <Input label="Display name" value={form.display_name} onChangeText={(v) => setForm((p: any) => ({ ...p, display_name: v }))} />
